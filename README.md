@@ -1065,7 +1065,7 @@ Backend + database:   [5 hours]
 Frontend:             [4.5 hours]
 Testing/debugging:    [1 hours]
 Deployment            [1.5 hours]
-Documentation:        [1.5 hour]
+Documentation:        [1.5 hours]
 
 
 Total:                [13.5 hours]
