@@ -100,37 +100,42 @@ function App() {
   }
 
   async function handleSubmitTask(data) {
-    try {
-      if (editingTask) {
-        await updateTask(editingTask.id, {
-          title: data.title,
-          description: data.description,
-          priority: data.priority,
-        });
-
-        showToast(
-          "Task updated successfully.",
-          "success"
-        );
-      } else {
-        await createTask(selectedColumnId, {
-          title: data.title,
-          description: data.description,
-          priority: data.priority,
-        });
-
-        showToast(
-          "Task created successfully.",
-          "success"
-        );
-      }
-
-      closeModal();
-      await loadBoard();
-    } catch (error) {
-      showToast(error.message);
-    }
+  if (!data.title || !data.title.trim()) {
+    showToast("Task title is required.", "error");
+    return;
   }
+
+  try {
+    if (editingTask) {
+      await updateTask(editingTask.id, {
+        title: data.title.trim(),
+        description: data.description,
+        priority: data.priority,
+      });
+
+      showToast(
+        "Task updated successfully.",
+        "success"
+      );
+    } else {
+      await createTask(selectedColumnId, {
+        title: data.title.trim(),
+        description: data.description,
+        priority: data.priority,
+      });
+
+      showToast(
+        "Task created successfully.",
+        "success"
+      );
+    }
+
+    closeModal();
+    await loadBoard();
+  } catch (error) {
+    showToast(error.message);
+  }
+}
 
   async function handleDeleteTask(task) {
     const confirmed = window.confirm(
