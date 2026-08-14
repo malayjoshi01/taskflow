@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Board from "./components/Board";
 import TaskModal from "./components/TaskModal";
-import Toast from "./components/Toast"; 
+import Toast from "./components/Toast";
 
 import {
   createTask,
@@ -23,8 +23,7 @@ function App() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [selectedColumnId, setSelectedColumnId] =
-    useState(null);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
 
   const [toast, setToast] = useState({
     message: "",
@@ -32,7 +31,7 @@ function App() {
   });
 
   const [darkMode, setDarkMode] = useState(() => {
-  return localStorage.getItem("taskflow-theme") === "dark";
+    return localStorage.getItem("taskflow-theme") === "dark";
   });
 
   useEffect(() => {
@@ -41,6 +40,20 @@ function App() {
       darkMode ? "dark" : "light"
     );
   }, [darkMode]);
+
+  function showToast(message, type = "error") {
+    setToast({
+      message,
+      type,
+    });
+
+    setTimeout(() => {
+      setToast({
+        message: "",
+        type: "error",
+      });
+    }, 3500);
+  }
 
   async function loadBoard() {
     try {
@@ -59,20 +72,6 @@ function App() {
   useEffect(() => {
     loadBoard();
   }, []);
-
-  function showToast(message, type = "error") {
-    setToast({
-      message,
-      type,
-    });
-
-    setTimeout(() => {
-      setToast({
-        message: "",
-        type: "error",
-      });
-    }, 3500);
-  }
 
   function openCreateModal(columnId = null) {
     setEditingTask(null);
@@ -100,42 +99,42 @@ function App() {
   }
 
   async function handleSubmitTask(data) {
-  if (!data.title || !data.title.trim()) {
-    showToast("Task title is required.", "error");
-    return;
-  }
-
-  try {
-    if (editingTask) {
-      await updateTask(editingTask.id, {
-        title: data.title.trim(),
-        description: data.description,
-        priority: data.priority,
-      });
-
-      showToast(
-        "Task updated successfully.",
-        "success"
-      );
-    } else {
-      await createTask(selectedColumnId, {
-        title: data.title.trim(),
-        description: data.description,
-        priority: data.priority,
-      });
-
-      showToast(
-        "Task created successfully.",
-        "success"
-      );
+    if (!data.title || !data.title.trim()) {
+      showToast("Task title is required.", "error");
+      return;
     }
 
-    closeModal();
-    await loadBoard();
-  } catch (error) {
-    showToast(error.message);
+    try {
+      if (editingTask) {
+        await updateTask(editingTask.id, {
+          title: data.title.trim(),
+          description: data.description,
+          priority: data.priority,
+        });
+
+        showToast(
+          "Task updated successfully.",
+          "success"
+        );
+      } else {
+        await createTask(selectedColumnId, {
+          title: data.title.trim(),
+          description: data.description,
+          priority: data.priority,
+        });
+
+        showToast(
+          "Task created successfully.",
+          "success"
+        );
+      }
+
+      closeModal();
+      await loadBoard();
+    } catch (error) {
+      showToast(error.message);
+    }
   }
-}
 
   async function handleDeleteTask(task) {
     const confirmed = window.confirm(
@@ -210,11 +209,18 @@ function App() {
   }, [board, priority, searchTerm]);
 
   return (
-    <div className={`app-shell ${darkMode ? "dark-mode" : ""}`}>
+    <div
+      className={`app-shell ${
+        darkMode ? "dark-mode" : ""
+      }`}
+    >
       <Sidebar
         darkMode={darkMode}
-        onToggleDarkMode={() => setDarkMode((current) => !current)}
+        onToggleDarkMode={() =>
+          setDarkMode((current) => !current)
+        }
       />
+
       <div className="main-content">
         <Header
           searchTerm={searchTerm}
