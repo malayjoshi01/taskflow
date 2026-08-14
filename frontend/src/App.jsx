@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Board from "./components/Board";
 import TaskModal from "./components/TaskModal";
-import Toast from "./components/Toast";
+import Toast from "./components/Toast"; 
 
 import {
   createTask,
