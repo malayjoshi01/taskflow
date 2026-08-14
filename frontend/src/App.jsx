@@ -264,6 +264,9 @@ function App() {
         defaultColumnId={selectedColumnId}
         onClose={closeModal}
         onSubmit={handleSubmitTask}
+        onValidationError={(message) =>
+          showToast(message, "error")
+        }
       />
 
       <Toast
