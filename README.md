@@ -6,9 +6,9 @@ TaskFlow allows users to create, edit, delete, move, search, and filter tasks ac
 
 ## Live Demo
 
-**Application:** `<https://taskflow-theta-puce.vercel.app/>`
+**Application:** [Click to see TaskFlow Live Demo](https://taskflow-theta-puce.vercel.app/)
 
-**GitHub Repository:** `<https://github.com/malayjoshi01/taskflow>`
+**GitHub Repository:** [Click for TaskFlow GitHub Repository](https://github.com/malayjoshi01/taskflow)
 
 ---
 
