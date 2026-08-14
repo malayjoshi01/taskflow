@@ -6,6 +6,7 @@ function TaskModal({
   defaultColumnId,
   onClose,
   onSubmit,
+  onValidationError,
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -33,6 +34,7 @@ function TaskModal({
     const trimmedTitle = title.trim();
 
     if (!trimmedTitle) {
+      onValidationError("Task title is required.");
       return;
     }
 
@@ -70,6 +72,7 @@ function TaskModal({
           </div>
 
           <button
+            type="button"
             className="modal-close"
             onClick={onClose}
             aria-label="Close"
